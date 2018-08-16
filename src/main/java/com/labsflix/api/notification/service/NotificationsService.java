@@ -24,7 +24,7 @@ public class NotificationsService {
 	}
 
 	public List<Content> getNotifications(String notiDate) {
-		List<Content> contents = new ArrayList<Content>();
+		List<Content> contents = new ArrayList<>();
 		
 		List<Notification> list = notificationMapper.findByNotiDate(notiDate);
 		list.forEach(notification -> {
