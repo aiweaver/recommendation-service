@@ -1,3 +1,6 @@
+server:
+  port: 8083
+
 spring:
   application:
     name: recommendation-service
@@ -10,11 +13,16 @@ spring:
   h2:
     console:
       enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
 
-promotion: action
-server:
-  port: 8083
-
-#promotion:
-#  sleep:
-#    milliseconds: 10000
+api:
+  connect:
+    path: /
+  bff:
+    path: /
+  services:
+    account-service: http://localhost:8081
+    contents-service: http://localhost:8082
+    recommendation-service: http://localhost:8083

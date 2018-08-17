@@ -1,38 +1,32 @@
 package com.labsflix.api.promotion.service;
 
-import com.labsflix.api.promotion.dao.EpisodeMapper;
-import com.labsflix.api.promotion.dao.PromotionMapper;
-import com.labsflix.api.promotion.vo.Promotion;
+import com.labsflix.api.domain.Content;
+import com.labsflix.api.promotion.repository.PromotionRepository;
+import com.labsflix.api.domain.Promotion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import com.labsflix.api.contents.vo.Content;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class PromotionsService {
 
-	@Value("${promotion}")
-	private String promotion;
+	@Value("${api.services.contents-service}")
+	private String contentsServiceURL;
 
-	private EpisodeMapper episodeMapper;
+	private RestTemplate restTemplate;
 
-	private PromotionMapper promotionMapper;
+	private PromotionRepository promotionRepository;
 
 	@Autowired
-	public PromotionsService(EpisodeMapper episodeMapper, PromotionMapper promotionMapper) {
-		this.episodeMapper = episodeMapper;
-		this.promotionMapper = promotionMapper;
+	public PromotionsService(RestTemplate restTemplate, PromotionRepository promotionRepository) {
+		this.promotionRepository = promotionRepository;
+		this.restTemplate = restTemplate;
 	}
 
-	public Content getPromotion() {
-		String categoryId = promotion;
-		Promotion promotion = promotionMapper.findByCategoryId(categoryId);
-		if (promotion != null) {
-			return episodeMapper.findById(promotion.getContent());
-		} else {
-			return null;
-		}
+	public Content getPromotion(int promotionMonth) {
+		Promotion promotion = promotionRepository.findByPromotionMonth(promotionMonth);
+		return restTemplate.getForObject(String.format("%s/v1/contents/%s", contentsServiceURL, promotion.getId()), Content.class);
 	}
 
 }
