@@ -8,4 +8,4 @@ spring:
 
 api:
   services:
-    contents-service: http://contents-service:8082
+    contents-service: http://contents-service:8080
