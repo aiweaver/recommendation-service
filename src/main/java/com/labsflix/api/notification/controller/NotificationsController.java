@@ -26,7 +26,6 @@ public class NotificationsController {
 	@GetMapping("/notifications")
 	public List<Content> getNotifications() {
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date()); //"2017-02-07";
-		System.out.println(date);
 		return notificationsService.getNotifications(date);
 	}
 }

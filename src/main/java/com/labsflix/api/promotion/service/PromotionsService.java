@@ -26,7 +26,7 @@ public class PromotionsService {
 
 	public Content getPromotion(int promotionMonth) {
 		Promotion promotion = promotionRepository.findByPromotionMonth(promotionMonth);
-		return restTemplate.getForObject(String.format("%s/v1/contents/%s", contentsServiceURL, promotion.getId()), Content.class);
+		return restTemplate.getForObject(String.format("%s/v1/contents/%s", contentsServiceURL, promotion.getContent()), Content.class);
 	}
 
 }
