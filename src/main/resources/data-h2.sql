@@ -7,6 +7,8 @@ VALUES
 	(5,'horror',905,5),
 	(6,'korean',41,6),
 	(7,'romance',48,7),
+--   (8,'family_kids',33,8),
+--   (8,'sf_fantasy',88,8),
   (8,'action',91,8),
 	(9,'tv',908,9),
 	(10,'winner',42,10);
